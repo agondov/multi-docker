@@ -1,19 +1,20 @@
 sudo: required
+language: generic
 services:
-  -docker
+  - docker
 before_install:
-  -docker build -f gondov/rect-test -f ./client/Dockerfile.dev ./client
+  - docker build -t gondov/rect-test -f ./client/Dockerfile.dev ./client
 script:
-  -docker run -e CI=true gondov/react-test npm test
+  - docker run -e CI=true gondov/react-test npm test
 after_success:
-  -docker build -t gondov/complex-client ./client
-  -docker build -t gondov/complex-nginx ./nginx
-  -docker build -t gondov/complex-server ./server
-  -docker build -t gondov/complex-worker ./worker
+  - docker build -t gondov/complex-client ./client
+  - docker build -t gondov/complex-nginx ./nginx
+  - docker build -t gondov/complex-server ./server
+  - docker build -t gondov/complex-worker ./worker
 
-  -echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 
-  -docker push gondov/complex-client
-  -docker push gondov/complex-nginx
-  -docker push gondov/complex-cserver
-  -docker push gondov/complex-worker
+  - docker push gondov/complex-client
+  - docker push gondov/complex-nginx
+  - docker push gondov/complex-cserver
+  - docker push gondov/complex-worker
