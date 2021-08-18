@@ -5,23 +5,23 @@ services:
   - docker
 
 before_install:
-  - docker build -t gondov/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t agondov/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true gondov/react-test npm test
+  - docker run -e CI=true agondov/react-test npm test
 
 after_success:
-  - docker build -t gondov/complex-client ./client
-  - docker build -t gondov/complex-nginx ./nginx
-  - docker build -t gondov/complex-server ./server
-  - docker build -t gondov/complex-worker ./worker
+  - docker build -t agondov/complex-client ./client
+  - docker build -t agondov/complex-nginx ./nginx
+  - docker build -t agondov/complex-server ./server
+  - docker build -t agondov/complex-worker ./worker
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   #- echo $DOCKER_PASSWORD | riff credential apply my-creds --set-default-image-prefix --docker-hub $DOCKER_ID
 
 
-  - docker push gondov/complex-client
-  - docker push gondov/complex-nginx
-  - docker push gondov/complex-cserver
-  - docker push gondov/complex-worker
+  - docker push agondov/complex-client
+  - docker push agondov/complex-nginx
+  - docker push agondov/complex-cserver
+  - docker push agondov/complex-worker
 
