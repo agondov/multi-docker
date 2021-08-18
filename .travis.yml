@@ -11,17 +11,17 @@ script:
   - docker run -e CI=true agondov/react-test npm test
 
 after_success:
-  - docker build -t agondov/complex-client ./client
-  - docker build -t agondov/complex-nginx ./nginx
-  - docker build -t agondov/complex-server ./server
-  - docker build -t agondov/complex-worker ./worker
+  - docker build -t agondov/client ./client
+  - docker build -t agondov/nginx ./nginx
+  - docker build -t agondov/server ./server
+  - docker build -t agondov/worker ./worker
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   #- echo $DOCKER_PASSWORD | riff credential apply my-creds --set-default-image-prefix --docker-hub $DOCKER_ID
 
 
-  - docker push agondov/complex-client
-  - docker push agondov/complex-nginx
-  - docker push agondov/complex-cserver
-  - docker push agondov/complex-worker
+  - docker push agondov/client
+  - docker push agondov/nginx
+  - docker push agondov/cserver
+  - docker push agondov/worker
 
